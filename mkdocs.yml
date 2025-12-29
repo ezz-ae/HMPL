@@ -1,32 +1,51 @@
 site_name: HMPL
+repo_url: https://github.com/ezz-ae/HMPL
+repo_name: ezz-ae/HMPL
+
+docs_dir: .
+site_dir: site
+
 theme:
   name: material
+  features:
+    - navigation.instant
+    - navigation.sections
+    - navigation.top
+    - toc.follow
+
+markdown_extensions:
+  - admonition
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.highlight
 
 nav:
-  - Home: index.md
-  - Notes:
-      - HMPL vs Dubai HMC: HMPL_vs_Dubai_HMC.md
+  - Home: README.md
   - Law:
       - HMPL v1.0: law/HMPL_v1.0.md
   - Whitepapers:
-      - HMPL Whitepaper v1.1: whitepapers/HMPL_Whitepaper_v1.1.md
+      - Whitepaper v1.1: whitepapers/HMPL_Whitepaper_v1.1.md
   - Journals:
-      - arXiv Submission: journals/HMPL_arXiv_Submission.md
-      - Harvard JOLT Adaptation Note: journals/HMPL_JOLT_Adaptation_Note.md
+      - arXiv Draft: journals/HMPL_arXiv_Submission.md
+      - JOLT Adaptation Note: journals/HMPL_JOLT_Adaptation_Note.md
   - Regulators:
       - Regulator Paragraph: regulators/HMPL_Regulator_Paragraph.md
       - Diagram Caption: regulators/HMPL_Diagram_Caption.md
-      - Analogy (Pharma Factory): regulators/HMPL_Analogy_PharmaFactory.md
+      - Pharma Factory Analogy: regulators/HMPL_Analogy_PharmaFactory.md
   - Governance:
       - Authority Classes: governance/Authority_Classes.md
       - H-Ledger Model: governance/H_Ledger_Model.md
-      - Precedent → Policy Pipeline: governance/Precedent_to_Policy_Pipeline.md
+      - Precedent→Policy Pipeline: governance/Precedent_to_Policy_Pipeline.md
+  - CXL:
+      - Specification: cxl/CXL_Specification.md
+      - Grammar: cxl/CXL_Grammar.ebnf
+  - Schemas:
+      - E-PKT Schema: schemas/E-PKT.schema.json
+      - Common Hardening Schema: schemas/common_hardening.schema.json
   - Implementation:
       - Reference Architecture: implementation/reference_architecture.md
-      - Runtime README: implementation/runtime/README.md
-  - Schemas:
-      - E-PKT: schemas/E-PKT.schema.json
-      - Common Hardening: schemas/common_hardening.schema.json
-  - CXL:
-      - CXL Specification: cxl/CXL_Specification.md
-      - CXL Grammar (EBNF): cxl/CXL_Grammar.ebnfx
+      - Runtime Skeleton: implementation/runtime/hmpl-repo-skeleton/README.md
