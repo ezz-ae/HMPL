@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Schema Hardening Defaults",
+  "type": "object",
+  "properties": {
+    "maxProperties": {
+      "type": "integer",
+      "const": 32
+    },
+    "propertyNamePattern": {
+      "type": "string",
+      "const": "^[a-z0-9_]{1,32}$"
+    },
+    "stringMaxLength": {
+      "type": "integer",
+      "const": 160
+    }
+  }
+}

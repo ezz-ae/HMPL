@@ -1,0 +1,32 @@
+site_name: HMPL
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - Notes:
+      - HMPL vs Dubai HMC: HMPL_vs_Dubai_HMC.md
+  - Law:
+      - HMPL v1.0: law/HMPL_v1.0.md
+  - Whitepapers:
+      - HMPL Whitepaper v1.1: whitepapers/HMPL_Whitepaper_v1.1.md
+  - Journals:
+      - arXiv Submission: journals/HMPL_arXiv_Submission.md
+      - Harvard JOLT Adaptation Note: journals/HMPL_JOLT_Adaptation_Note.md
+  - Regulators:
+      - Regulator Paragraph: regulators/HMPL_Regulator_Paragraph.md
+      - Diagram Caption: regulators/HMPL_Diagram_Caption.md
+      - Analogy (Pharma Factory): regulators/HMPL_Analogy_PharmaFactory.md
+  - Governance:
+      - Authority Classes: governance/Authority_Classes.md
+      - H-Ledger Model: governance/H_Ledger_Model.md
+      - Precedent → Policy Pipeline: governance/Precedent_to_Policy_Pipeline.md
+  - Implementation:
+      - Reference Architecture: implementation/reference_architecture.md
+      - Runtime README: implementation/runtime/README.md
+  - Schemas:
+      - E-PKT: schemas/E-PKT.schema.json
+      - Common Hardening: schemas/common_hardening.schema.json
+  - CXL:
+      - CXL Specification: cxl/CXL_Specification.md
+      - CXL Grammar (EBNF): cxl/CXL_Grammar.ebnfx
