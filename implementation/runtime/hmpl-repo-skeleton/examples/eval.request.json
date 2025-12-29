@@ -1,0 +1,25 @@
+{
+  "R": {
+    "domain": "FINANCE",
+    "impact_class": "HIGH",
+    "irreversible": true,
+    "requires_human": true
+  },
+  "Y": {
+    "action": "EXECUTE",
+    "confidence": 0.72,
+    "risk": {
+      "level": 0.8,
+      "class": "HIGH"
+    },
+    "plan": [
+      {
+        "op": "WRITE",
+        "args": {
+          "amount": 1000,
+          "currency": "AED"
+        }
+      }
+    ]
+  }
+}

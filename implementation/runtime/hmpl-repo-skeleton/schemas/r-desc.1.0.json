@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cologic.ezz.ae/schemas/hmp/r-desc/1.0.json",
+  "title": "HMP Risk Descriptor (R-DESC) v1.0",
+  "type": "object",
+  "required": [
+    "domain",
+    "impact_class",
+    "irreversible",
+    "requires_human"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "domain": {
+      "type": "string",
+      "enum": [
+        "GENERIC",
+        "GOV",
+        "FINANCE",
+        "HEALTH",
+        "REAL_ESTATE",
+        "SECURITY",
+        "LEGAL",
+        "EDU"
+      ]
+    },
+    "impact_class": {
+      "type": "string",
+      "enum": [
+        "LOW",
+        "MED",
+        "HIGH",
+        "CRITICAL"
+      ]
+    },
+    "irreversible": {
+      "type": "boolean"
+    },
+    "requires_human": {
+      "type": "boolean"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "EVT_12345678",
+  "ts": "2025-12-29T18:00:00Z",
+  "nonce": "N_abcdefghijk",
+  "type": "QUERY",
+  "channel": "WEB",
+  "trace": {
+    "session_id": "S_1",
+    "request_id": "R_1"
+  }
+}

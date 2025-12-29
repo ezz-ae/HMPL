@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cologic.ezz.ae/schemas/hmp/s-snap/1.0.json",
+  "title": "HMP State Snapshot (S-SNAP) v1.0",
+  "type": "object",
+  "required": [
+    "state_id",
+    "ts",
+    "entities",
+    "permissions"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "state_id": {
+      "type": "string",
+      "maxLength": 128
+    },
+    "ts": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "entities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actor",
+        "target"
+      ],
+      "properties": {
+        "actor": {
+          "$ref": "#/defs/entity_ref"
+        },
+        "target": {
+          "$ref": "#/defs/entity_ref"
+        }
+      }
+    },
+    "permissions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowed_actions",
+        "requires_human_for"
+      ],
+      "properties": {
+        "allowed_actions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 64
+          }
+        },
+        "requires_human_for": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 64
+          }
+        }
+      }
+    },
+    "facts": {
+      "title": "S-SNAP facts (no narrative)",
+      "type": "object",
+      "maxProperties": 32,
+      "propertyNames": {
+        "pattern": "^[a-z0-9_]{1,32}$"
+      },
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "string",
+            "maxLength": 160
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    }
+  },
+  "defs": {
+    "entity_ref": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "USER",
+            "ORG",
+            "ACCOUNT",
+            "ASSET",
+            "CASE",
+            "DOC"
+          ]
+        }
+      }
+    }
+  }
+}

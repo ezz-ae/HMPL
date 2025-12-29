@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cologic.ezz.ae/schemas/hmp/d-pkt/1.0.json",
+  "title": "HMP Decision Packet (D-PKT) v1.0",
+  "type": "object",
+  "required": [
+    "action",
+    "confidence",
+    "risk",
+    "plan"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": [
+        "EXECUTE",
+        "REFUSE",
+        "ESCALATE",
+        "REQUEST_SCHEMA",
+        "REQUEST_INFO"
+      ]
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "risk": {
+      "type": "object",
+      "required": [
+        "level",
+        "class"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "level": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "class": {
+          "type": "string",
+          "enum": [
+            "LOW",
+            "MED",
+            "HIGH",
+            "CRITICAL"
+          ]
+        }
+      }
+    },
+    "plan": {
+      "type": "array",
+      "maxItems": 16,
+      "items": {
+        "$ref": "#/defs/op"
+      }
+    },
+    "handoff": {
+      "$ref": "#/defs/handoff"
+    }
+  },
+  "defs": {
+    "op": {
+      "type": "object",
+      "required": [
+        "op",
+        "args"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "op": {
+          "type": "string",
+          "enum": [
+            "READ",
+            "WRITE",
+            "CALC",
+            "LOOKUP",
+            "OPEN_CASE",
+            "CLOSE_CASE",
+            "NOOP"
+          ]
+        },
+        "args": {
+          "type": "object",
+          "maxProperties": 32,
+          "propertyNames": {
+            "pattern": "^[a-z0-9_]{1,32}$"
+          },
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 160
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "handoff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id",
+        "summary",
+        "required_decision",
+        "evidence"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "summary": {
+          "title": "handoff summary",
+          "type": "object",
+          "maxProperties": 32,
+          "propertyNames": {
+            "pattern": "^[a-z0-9_]{1,32}$"
+          },
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 160
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required_decision": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "evidence": {
+          "type": "array",
+          "maxItems": 16,
+          "items": {
+            "$ref": "#/defs/evidence_item"
+          }
+        }
+      }
+    },
+    "evidence_item": {
+      "type": "object",
+      "required": [
+        "kind",
+        "ref"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "FACT",
+            "CONSTRAINT",
+            "STATE",
+            "RISK",
+            "LOGREF"
+          ]
+        },
+        "ref": {
+          "type": "string",
+          "maxLength": 256
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "action": {
+            "const": "ESCALATE"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "handoff"
+        ]
+      },
+      "else": {
+        "not": {
+          "required": [
+            "handoff"
+          ]
+        }
+      }
+    }
+  ]
+}

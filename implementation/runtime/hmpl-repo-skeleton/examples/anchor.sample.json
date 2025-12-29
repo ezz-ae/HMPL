@@ -1,0 +1,8 @@
+{
+  "kind": "POLICY_PUBLICATION",
+  "ref_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "meta": {
+    "policy_id": "POL_FINANCE_BASE",
+    "version": "0.0.1"
+  }
+}

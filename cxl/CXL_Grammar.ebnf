@@ -1,0 +1,11 @@
+
+expr := term (("AND" | "OR") term)* ;
+term := "NOT"? factor ;
+factor := "(" expr ")" | pred | function_call ;
+pred := value pred_tail | function_call ;
+pred_tail := (comp_op value) | ("IN" value) | ("HAS" value) | ("==" value) | ("!=" value) ;
+value := function_call | literal | path ;
+function_call := IDENT "(" (value ("," value)*)? ")" ;
+path := ROOT ("." IDENT | "[" NUMBER "]")* ;
+ROOT := "E" | "S" | "R" | "P" | "Y" ;
+literal := "true" | "false" | "null" | NUMBER | STRING ;

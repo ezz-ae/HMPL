@@ -1,0 +1,311 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cologic.ezz.ae/schemas/hmp/p-bndl/1.0.json",
+  "title": "HMP Policy Bundle (P-BNDL) v1.0",
+  "type": "object",
+  "required": [
+    "policy_id",
+    "version",
+    "domain",
+    "issued_at",
+    "codes",
+    "matrices",
+    "checks",
+    "signatures"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "policy_id": {
+      "type": "string",
+      "maxLength": 128
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "domain": {
+      "type": "string",
+      "enum": [
+        "GENERIC",
+        "GOV",
+        "FINANCE",
+        "HEALTH",
+        "REAL_ESTATE",
+        "SECURITY",
+        "LEGAL",
+        "EDU"
+      ]
+    },
+    "issued_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "codes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/defs/code"
+      }
+    },
+    "matrices": {
+      "type": "object",
+      "required": [
+        "lane_matrix",
+        "op_matrix"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "lane_matrix": {
+          "$ref": "#/defs/lane_matrix"
+        },
+        "op_matrix": {
+          "$ref": "#/defs/op_matrix"
+        }
+      }
+    },
+    "checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/defs/cxl_check"
+      }
+    },
+    "precedent_index": {
+      "type": "array",
+      "items": {
+        "$ref": "#/defs/precedent_ref"
+      }
+    },
+    "signatures": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/defs/sig"
+      }
+    }
+  },
+  "defs": {
+    "code": {
+      "type": "object",
+      "required": [
+        "code",
+        "kind"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^[A-Z0-9_\\.]{3,64}$"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "DECISION",
+            "ACTION",
+            "REASON_CODE",
+            "EXCEPTION_CODE"
+          ]
+        }
+      }
+    },
+    "lane_matrix": {
+      "type": "object",
+      "required": [
+        "default_lane",
+        "rules"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "default_lane": {
+          "type": "string",
+          "enum": [
+            "EXECUTE",
+            "REFUSE",
+            "ESCALATE",
+            "REQUEST_SCHEMA",
+            "REQUEST_INFO"
+          ]
+        },
+        "rules": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/defs/lane_rule"
+          }
+        }
+      }
+    },
+    "lane_rule": {
+      "type": "object",
+      "required": [
+        "when",
+        "then"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "when": {
+          "type": "string",
+          "maxLength": 2048
+        },
+        "then": {
+          "type": "object",
+          "required": [
+            "lane"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "lane": {
+              "type": "string",
+              "enum": [
+                "EXECUTE",
+                "REFUSE",
+                "ESCALATE",
+                "REQUEST_SCHEMA",
+                "REQUEST_INFO"
+              ]
+            },
+            "required_decision_code": {
+              "type": "string",
+              "pattern": "^[A-Z0-9_\\.]{3,64}$"
+            }
+          }
+        }
+      }
+    },
+    "op_matrix": {
+      "type": "object",
+      "required": [
+        "op_limits"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "op_limits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/defs/op_limit_rule"
+          }
+        }
+      }
+    },
+    "op_limit_rule": {
+      "type": "object",
+      "required": [
+        "when",
+        "allow_ops",
+        "deny_ops"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "when": {
+          "type": "string",
+          "maxLength": 2048
+        },
+        "allow_ops": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 32
+          }
+        },
+        "deny_ops": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 32
+          }
+        }
+      }
+    },
+    "cxl_check": {
+      "type": "object",
+      "required": [
+        "id",
+        "severity",
+        "lang",
+        "expr"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "severity": {
+          "type": "string",
+          "enum": [
+            "LOW",
+            "MED",
+            "HIGH",
+            "CRITICAL"
+          ]
+        },
+        "lang": {
+          "type": "string",
+          "const": "CXL"
+        },
+        "when": {
+          "type": "string",
+          "maxLength": 2048
+        },
+        "expr": {
+          "type": "string",
+          "maxLength": 2048
+        }
+      }
+    },
+    "precedent_ref": {
+      "type": "object",
+      "required": [
+        "precedent_id",
+        "hash",
+        "issued_at"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "precedent_id": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "hash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "issued_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "sig": {
+      "type": "object",
+      "required": [
+        "signer",
+        "alg",
+        "sig"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "signer": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "alg": {
+          "type": "string",
+          "enum": [
+            "ed25519",
+            "p256",
+            "secp256k1"
+          ]
+        },
+        "sig": {
+          "type": "string",
+          "maxLength": 512
+        }
+      }
+    }
+  }
+}

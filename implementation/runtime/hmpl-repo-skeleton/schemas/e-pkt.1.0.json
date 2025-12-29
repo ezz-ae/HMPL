@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cologic.ezz.ae/schemas/hmp/e-pkt/1.0.json",
+  "title": "HMP Event Packet (E-PKT) v1.0",
+  "type": "object",
+  "required": [
+    "id",
+    "ts",
+    "nonce",
+    "type",
+    "channel"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 128
+    },
+    "ts": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "nonce": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 128
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "QUERY",
+        "REQUEST_ACTION",
+        "REQUEST_INFO",
+        "UPDATE_STATE",
+        "EXTERNAL_SIGNAL",
+        "INCIDENT",
+        "PAYMENT",
+        "LEGAL",
+        "HEALTH",
+        "FINANCE",
+        "REAL_ESTATE",
+        "SECURITY",
+        "EDU",
+        "OTHER"
+      ]
+    },
+    "channel": {
+      "type": "string",
+      "enum": [
+        "WEB",
+        "MOBILE",
+        "API",
+        "INTERNAL",
+        "PARTNER",
+        "AGENT_UI"
+      ]
+    },
+    "trace": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "session_id": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "request_id": {
+          "type": "string",
+          "maxLength": 128
+        }
+      }
+    }
+  }
+}

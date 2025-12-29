@@ -1,0 +1,15 @@
+{
+  "name": "hmpl-repo-skeleton",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "services/*",
+    "tools/*"
+  ],
+  "scripts": {
+    "build": "npm -ws run build",
+    "dev": "npm -ws run dev",
+    "test": "npm -ws run test",
+    "lint": "npm -ws run lint"
+  }
+}

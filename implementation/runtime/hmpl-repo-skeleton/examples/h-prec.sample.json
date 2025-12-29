@@ -1,0 +1,19 @@
+{
+  "precedent_id": "PREC_001",
+  "domain": "FINANCE",
+  "issued_at": "2025-12-29T18:00:00Z",
+  "case_id": "CASE_ABC",
+  "decision_code": "FINANCE.PAYMENT.REQUIRE_HUMAN",
+  "facts": {
+    "amount": 1000,
+    "currency": "AED",
+    "counterparty_id": "CP_123"
+  },
+  "signatures": [
+    {
+      "signer": "A3_DOMAIN",
+      "alg": "ed25519",
+      "sig": "<sig>"
+    }
+  ]
+}
